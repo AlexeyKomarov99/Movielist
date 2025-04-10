@@ -6,9 +6,6 @@ import App from './App';
 
 import { Provider } from 'react-redux';
 import { store } from './app/store';
-import { fetchMovies } from './features/movies/moviesSlice';
-
-store.dispatch(fetchMovies());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

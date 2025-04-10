@@ -1,8 +1,14 @@
-import React from 'react'
+import React from 'react';
+//===== components =====//
+import MovieSearch from '../../components/MovieSearch/MovieSearch';
+import MovieList from '../../components/MovieList/MovieList';
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <main>
+      <MovieSearch />
+      <MovieList />
+    </main>
   )
 }
 

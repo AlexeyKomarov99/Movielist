@@ -1,11 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const MovieCard = () => {
+const MovieCard = ({movie}) => {
   return (
-    <div>
-      
-    </div>
+    <Link to={`/movies/${movie.imdbID}`} >
+      <article>
+        <h2>{movie.Title}</h2>
+        <img src={movie.Poster} alt="Poster" />
+      </article>
+    </Link>
   )
 }
 
-export default MovieCard
+export default MovieCard;

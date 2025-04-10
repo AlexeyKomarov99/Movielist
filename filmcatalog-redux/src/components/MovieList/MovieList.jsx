@@ -5,18 +5,23 @@ import {
   getMoviesStatus,
   getMoviesError,
 } from '../../features/movies/moviesSlice';
+//===== components =====//
+import MovieCard from '../MovieCard/MovieCard';
 
 const MovieList = () => {
   
   const movies = useSelector(selectAllMovies);
   const moviesStatus = useSelector(getMoviesStatus);
   const error = useSelector(getMoviesError);
-  
+
   let content;
   if(moviesStatus === 'loading') {
     content = <p>Loading...</p>
   } else if(moviesStatus === 'succeeded') {
-    movies = [...content.Search]
+    console.log(movies.Search);
+    content = movies.Search.map(movie => (
+      <MovieCard key={movie.imdbID} movie={movie} />
+    ))
   } else if(moviesStatus === 'failed') {
     content = <p>{error}</p>
   }
