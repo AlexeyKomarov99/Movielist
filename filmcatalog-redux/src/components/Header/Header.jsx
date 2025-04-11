@@ -2,13 +2,14 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 //===== assets =====//
 import './Header.scss';
+//===== components =====//
+import Navbar from '../Navbar/Navbar';
 
 const Header = () => {
   return (
-    <div className='Header'>
-      <span>Home page</span>
-      <span>Кол-во избранных фильмов</span>
-    </div>
+    <header className='Header'>
+      <Navbar />
+    </header>
   )
 }
 

@@ -5,6 +5,8 @@ import HomePage from './pages/HomePage/HomePage';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import MovieDetails from './pages/MovieDetails/MovieDetails';
 import MovieFeatured from './pages/MoviesFeatured/MoviesFeatured';
+import MoviesWatchLater from './pages/MoviesWatchLater/MoviesWatchLater';
+import MovieViewingHistory from './pages/MovieViewingHistory/MovieViewingHistory';
 
 //===== components =====//
 import Layout from './components/Layout/Layout';
@@ -17,6 +19,8 @@ const App = () => {
         <Route path='/movies'>
           <Route path=':movieId' element={<MovieDetails />} />
           <Route path='featured-list' element={<MovieFeatured />} />
+          <Route path='watch-later' element={<MoviesWatchLater />} />
+          <Route path='movie-viewing-history' element={<MovieViewingHistory /> } />
         </Route>
         <Route path='*' element={<PageNotFound /> } />
       </Route>
