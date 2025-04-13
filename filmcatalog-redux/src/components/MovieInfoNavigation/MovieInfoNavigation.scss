@@ -1,0 +1,58 @@
+@import '../../index.css';
+.MovieInfoNavigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    .MovieInfoNavigation__nav {
+        width: 100%;
+        background-color: var(--color-gray);
+        margin-bottom: 16px;
+        .MovieInfoNavigation__ul {
+            display: flex;
+
+            .MovieInfoNavigation__li {
+                padding: 10px 15px;
+                border-radius: var(--border-radius-medium);
+                &:nth-child(n):not(:last-child) {
+                    margin-right: 16px;
+                }
+                cursor: pointer;
+            }
+
+            .active-section {
+                background-color: var(--color-orange);
+                color: var(--color-dark-gray);
+            }
+        }
+    }
+
+    // section "about"
+    .MovieInfoNavigation__about {
+
+    }
+
+    // section "actors"
+    .MovieInfoNavigation__actors {
+        
+    }
+
+    // setcion "facts"
+    .MovieInfoNavigation__facts {
+        .MovieInfoNavigation__article {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+            &:nth-child(n):not(:last-child) {
+                margin-bottom: 8px;
+            }
+            .MovieInfoNavigation__title {
+                color: var(--color-white);
+            }
+            .MovieInfoNavigation__award {
+
+            }
+        }
+    }
+}

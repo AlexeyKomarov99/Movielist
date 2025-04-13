@@ -3,6 +3,7 @@ import {Routes, Route} from 'react-router-dom';
 //===== pages =====//
 import HomePage from './pages/HomePage/HomePage';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
+import MoviesFound from './pages/MoviesFound/MoviesFound';
 import MovieDetails from './pages/MovieDetails/MovieDetails';
 import MovieFeatured from './pages/MoviesFeatured/MoviesFeatured';
 import MoviesWatchLater from './pages/MoviesWatchLater/MoviesWatchLater';
@@ -19,6 +20,7 @@ const App = () => {
         <Route path='/' element={<Layout />} >
           <Route index element={<HomePage />} />
           <Route path='/movies'>
+            <Route path='found-movies' element={<MoviesFound />} />
             <Route path=':movieId' element={<MovieDetails />} />
             <Route path='featured-list' element={<MovieFeatured />} />
             <Route path='watch-later' element={<MoviesWatchLater />} />

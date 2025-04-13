@@ -72,16 +72,18 @@
                 justify-content: space-between;
                 align-items: center;
                 .MovieSearchMW__btn-close {
-                    background-color: #1F1F1F;
-                    color: #9A9A9A;
-                    outline: var(--outline-gray);
-
                         padding: 10px 27px;
                         border-radius: var(--border-radius-medium);
-                        background-color: #F33F3F;
-                        color: var(--color-white);
-                        transition: var(--transition);
+                        background-color: #1F1F1F;
+                        color: #9A9A9A;
+                        outline: var(--outline-gray);
                         cursor: pointer;
+                        
+                        &:hover {
+                            background-color: #F33F3F;
+                            color: var(--color-white);
+                            transition: var(--transition);
+                        }
 
                     &:hover {
                         background-color: var(--color-red);

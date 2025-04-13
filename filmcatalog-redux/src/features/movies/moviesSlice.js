@@ -25,7 +25,7 @@ const initialState = {
 export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (searchTerm) => {
     console.log(searchTerm);
     try {
-        const response = await axios.get(`${POSTS_URL}/?s=${searchTerm}&apikey=${API_KEY}`);
+        const response = await axios.get(`${POSTS_URL}/?s=${searchTerm.movieTitle}&apikey=${API_KEY}`);
         return response.data;
     } catch (error) {
         return error.message;

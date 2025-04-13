@@ -1,10 +1,13 @@
 import React from 'react';
+//===== redux =====//
 import { useSelector } from 'react-redux';
 import { 
   selectAllMovies,
   getMoviesStatus,
   getMoviesError,
 } from '../../features/movies/moviesSlice';
+//===== assets =====//
+import './MovieList.scss';
 //===== components =====//
 import MovieCard from '../MovieCard/MovieCard';
 
@@ -27,7 +30,7 @@ const MovieList = () => {
   }
 
   return (
-    <section>
+    <section className='MovieList'>
       {content}
     </section>
   )

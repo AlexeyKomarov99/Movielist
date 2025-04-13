@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
+import { useNavigate } from 'react-router-dom';
 //===== redux =====//
 import { useDispatch } from 'react-redux';
 import { fetchMovies } from '../../features/movies/moviesSlice';
@@ -24,6 +25,7 @@ const MovieSearchMW = ({openWindow, openWindowClick}) => {
         startYear: '',
         endYear: '',
     });
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isAnimating, setIsAnimating] = useState(false);
     const [error, setError] = useState(null);
@@ -53,6 +55,7 @@ const MovieSearchMW = ({openWindow, openWindowClick}) => {
             alert('Заполните обязательные поля!');
             return;
         } else {
+            navigate('/movies/found-movies');
             // Запрос на получение списка фильмов
             dispatch(fetchMovies(searchExpression));
 
