@@ -23,7 +23,7 @@ const initialState = {
 
 // Получение списка фильмов по запрашиваемому названию фильма в поле ввода
 export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (searchTerm) => {
-    console.log(searchTerm)
+    console.log(searchTerm);
     try {
         const response = await axios.get(`${POSTS_URL}/?s=${searchTerm}&apikey=${API_KEY}`);
         return response.data;

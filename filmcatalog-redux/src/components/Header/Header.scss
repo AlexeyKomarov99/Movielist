@@ -1,6 +1,26 @@
+@import '../../index.css';
+
 .Header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-black);
+    .Header__wrapper {
+        width: 100%;
+        padding: 0 28px;
+        .Header__container {
+            height: 100%;
+            padding: 28px 0;
+            .Header__content {
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+
+                .MainLogo {
+                    padding-left: 12px;
+                    margin-bottom: 28px;
+                }
+            }
+        }
+    }
 }

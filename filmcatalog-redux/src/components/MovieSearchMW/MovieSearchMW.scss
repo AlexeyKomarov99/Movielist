@@ -1,0 +1,114 @@
+@import '../../index.css';
+.MovieSearchMW {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    opacity: 0;
+    transition: var(--transition);
+
+    .MovieSearchMW__form {
+        width: 550px;
+
+        .MovieSearchMW__form-container {
+            display: flex;
+            flex-direction: column;
+
+            // Название фильма
+            .MovieSearchMW__form-group {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                margin-bottom: 16px;
+                .MovieSearchMW__label {
+                    font-size: 17px;
+                    margin-bottom: 8px;
+                }
+                .MovieSearchMW__error {
+                    color: var(--color-red);
+                    font-size: 13px;
+                    margin-top: 4px;
+                }
+            }
+
+            // Группа по жанрам и году публикации фильмов
+            .MovieSearchMW__form-container-inner {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 16px;
+                margin-bottom: 24px;
+
+                .MovieSearchMW__form-group {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: start;
+                    align-items: start;
+
+                    .MovieSearchMW__label {
+                        font-size: 17px;
+                        margin-bottom: 8px;
+                    }
+                    .MovieSearchMW__select {
+                        width: 100%;
+                    }
+                }
+                
+                .MovieSearchMW__form-group-date {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-gap: 8px;
+                    .MovieSearchMW__form-group {
+
+                    }
+                }
+            }
+
+            // Кнопка поиска фильма
+            .MovieSearchMW__btn-group {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .MovieSearchMW__btn-close {
+                    background-color: #1F1F1F;
+                    color: #9A9A9A;
+                    outline: var(--outline-gray);
+
+                        padding: 10px 27px;
+                        border-radius: var(--border-radius-medium);
+                        background-color: #F33F3F;
+                        color: var(--color-white);
+                        transition: var(--transition);
+                        cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--color-red);
+                        color: var(--color-white);
+                        outline: none;
+                    }
+                }
+                .MovieSearchMW__btn {
+
+                }
+            }
+        }
+    }
+}
+.MovieSearchMW__display {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    transition: var(--transition);
+}
+.MovieSearchMW__hide {
+    transform: translate(-50%, -40%);
+    opacity: 0;
+    transition: var(--transition);
+}
+.MovieSearchMW__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background-color: rgba(0,0,0,0.4);
+}

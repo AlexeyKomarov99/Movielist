@@ -1,35 +1,35 @@
 import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+//===== assets =====//
+import './MovieSearch.scss';
+import { IoSearchOutline as SearchIcon } from "react-icons/io5";
+//===== components =====//
+import MovieSearchMW from '../MovieSearchMW/MovieSearchMW';
+
 //===== redux =====//
 import { useDispatch } from 'react-redux';
 import { fetchMovies } from '../../features/movies/moviesSlice';
 
 const MovieSearch = () => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const dispatch = useDispatch();
-
-    const searchMoviesClick = (e) => {
-        e.preventDefault();
-        try {
-            dispatch(fetchMovies(searchTerm));
-        } catch (error) {
-            
-        }
-    }
+    const [openWindow, setOpenWindow] = useState(false);
+    const openWindowClick = () => setOpenWindow(prevState => !prevState);
 
     return (
-    <div>
-        <input 
-            type="text" 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder='input name movie'
-        />
+    <div className='MovieSearch'>
         <button
-            onClick={searchMoviesClick}
+            className='MovieSearch__btn'
+            onClick={openWindowClick}
         >
-            Поиск
+            <span className="MovieSearch__btn-icon-wrapper">
+                <SearchIcon className='MovieSearch__btn-icon' />
+            </span>
+            <span className="MovieSearch__btn-name">
+                Поиск
+            </span>
         </button>
+        <MovieSearchMW 
+            openWindow={openWindow}
+            openWindowClick={openWindowClick}
+        />
     </div>
   )
 }

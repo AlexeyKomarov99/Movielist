@@ -1,15 +1,44 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+//===== assets =====//
+import './Navbar.scss';
+
+import { AiOutlineHome as HomeIcon } from "react-icons/ai";
+import { CiHeart as HeartIcon } from "react-icons/ci";
+import { PiBooks as WatchLaterIcon } from "react-icons/pi";
+import { GoHistory as HistoryIcon } from "react-icons/go";
+
+const navbarData = [
+  {id: 1, route: '/', title: 'Главная', icon: <HomeIcon className="Navbar__icon" /> },
+  {id: 2, route: '/movies/featured-list', title: 'Избранное', icon: <HeartIcon className="Navbar__icon" /> },
+  {id: 3, route: '/movies/watch-later', title: 'Посмотреть позже', icon: <WatchLaterIcon className="Navbar__icon" /> },
+  {id: 4, route: '/movies/movie-viewing-history', title: 'История просмотров', icon: <HistoryIcon className="Navbar__icon" /> },
+]
 
 const Navbar = () => {
   return (
-    <nav>
-        <Link to='/'>Главная</Link>
-        <Link to='/movies/featured-list'>Избранное</Link>
-        <Link to='/movies/watch-later'>Посмотреть позже</Link>
-        <Link to='/movies/movie-viewing-history' >История просмотров</Link>
+    <nav className='Navbar'>
+        <ul className="Navbar__container">
+          {navbarData.map((link) => (
+            <li
+              key={link.id} 
+              className="Navbar__item"
+            >
+              <NavLink
+                to={link.route}
+                className={({isActive}) => `Navbar__link ${isActive ? 'active-link' : ''}`}
+              >
+                <span className="Navbar__icon-wrapper">
+                  {link.icon}
+                </span>
+                <span className="Navbar__title">{link.title}</span>
+              </NavLink>
+            </li>
+          ))}
+
+        </ul>
     </nav>
   )
 }
 
-export default Navbar
+export default Navbar;

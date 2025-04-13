@@ -1,0 +1,16 @@
+.Layout {
+    width: 100%;
+    height: 100%;
+    .Layout__content {
+        display: grid;
+        grid-template-columns: 20% 80%;
+        height: 100vh;
+
+        .Layout__container-Header {
+        }
+
+        .Layout__container-Outlet {
+            padding: 28px 50px;
+        }
+    }
+}

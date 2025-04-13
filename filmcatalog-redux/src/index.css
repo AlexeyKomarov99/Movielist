@@ -1,0 +1,75 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-decoration: none;
+    border: 0;
+    outline: 0;
+}
+
+@font-face {
+    font-family: 'SF-Pro';
+    src: 
+        url('./assets/fonts/SF-Pro.woff'),
+        url('./assets/fonts/SF-Pro.woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    /* colors */
+    --color-black: #080808;
+    --color-white: #EAEAEA;
+    --color-red: #F33F3F;
+    --color-orange: #FFB320;
+    --color-gray: #5C5C5C;
+    --color-light-gray: #9A9A9A;
+    --color-dark-gray: #1F1F1F;
+
+    /* border and radius */
+    --border-radius-small: 4px;
+    --border-radius-medium: 8px;
+    --border-radius-hard: 16px;
+
+    --outline-gray: 1px solid var(--color-gray);
+    --outline-red: 1px solid var(--color-red);
+
+    /* animation and transition */
+    --transition: all 0.4s ease-out;
+
+    /* fonts */
+    --SF-Pro: 'SF-Pro', 'sans-serif';
+}
+
+body {
+    font-family: var(--SF-Pro);
+    background-color: var(--color-dark-gray);
+    font-size: 15px;
+}
+
+button {
+    padding: 10px 27px;
+    border-radius: var(--border-radius-medium);
+    background-color: #F33F3F;
+    color: var(--color-white);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: var(--border-radius-medium);
+    color: #1F1F1F;
+    cursor: pointer;
+}
+
+form {
+    width: 100%;
+    padding: 16px;
+    outline: var(--outline-gray);
+    border-radius: var(--border-radius-hard);
+    background-color: #1F1F1F;
+    color: #9A9A9A;
+}
