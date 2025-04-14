@@ -1,0 +1,56 @@
+@import '../../index.css';
+.MovieInfoHeader__position {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 450px;
+    .MovieInfoHeader__container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        
+        .MovieInfoHeader__content-star {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            .MovieInfoHeader__star-wrapper {
+                display: block;
+                width: 32px;
+                height: 32px;
+                margin-right: 4px;
+                .MovieInfoHeader__star-icon {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: var(--color-orange);
+                }
+            }
+            .MovieInfoHeader__star-rating {
+                color: var(--color-orange);
+            }
+
+        }
+
+        .MovieInfoHeader__heart-wrapper {
+            display: block;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            .MovieInfoHeader__heart-icon {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--color-red);
+            }
+            .active-heart {
+                color: var(--color-red);
+            }
+        }
+    }
+}

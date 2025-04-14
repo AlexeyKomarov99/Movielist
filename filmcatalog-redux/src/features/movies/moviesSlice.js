@@ -48,15 +48,16 @@ const moviesSlice = createSlice({
     reducers: {
         addMovieFavorites: {
             reducer(state, action) {
-                state.favorites.push(action.payload);
+                state.favoritesMovies.push(action.payload);
             },
-            prepare(movieId, title, content, yearReleased) {
+            prepare(movieID, Title, Year, Poster, Type) {
                 return {
                     payload: {
-                        movieId,
-                        title,
-                        content,
-                        yearReleased
+                        movieID, 
+                        Title, 
+                        Year, 
+                        Poster, 
+                        Type
                     }
                 }
             }
@@ -93,7 +94,14 @@ const moviesSlice = createSlice({
 
 export const selectAllMovies = (state) => state.movies.movies;
 export const getDescriptionMovie = (state) => state.movies.movieDescription;
-export const selectAllFavoriteMovies = (state) => state.movies.favoritesMovies;
+export const selectAllFavoriteMovies = (state) => {
+    // state.movies.favoritesMovies;
+    const storedFeatured = localStorage.getItem('featured-movie-list');
+    const moviesFeatured = JSON.parse(storedFeatured);
+    console.log('Это спиок избранных фильмов!');
+    console.log(moviesFeatured);
+}
+    
 export const getMoviesStatus = (state) => state.movies.status;
 export const getMoviesError = (state) => state.movies.error;
 

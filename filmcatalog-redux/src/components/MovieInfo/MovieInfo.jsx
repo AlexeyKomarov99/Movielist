@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import './MovieInfo.scss';
 //===== components =====//
 import MovieInfoNavigation from '../MovieInfoNavigation/MovieInfoNavigation';
+import MovieInfoHeader from '../MovieInfoHeader/MovieInfoHeader';
 
 const MovieInfo = ({movie}) => {
     const [activeSection, setActiveSection] = useState('about');
@@ -46,6 +47,9 @@ const MovieInfo = ({movie}) => {
               src={movie.Poster} 
               alt="Poster" 
               className="MovieInfo__img" 
+            />
+            <MovieInfoHeader
+              movie={movie} 
             />
           </div>
         </div>
