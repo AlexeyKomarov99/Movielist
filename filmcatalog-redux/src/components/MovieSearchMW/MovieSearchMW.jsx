@@ -56,6 +56,7 @@ const MovieSearchMW = ({openWindow, openWindowClick}) => {
             return;
         } else {
             navigate('/movies/found-movies');
+            
             // Запрос на получение списка фильмов
             dispatch(fetchMovies(searchExpression));
 

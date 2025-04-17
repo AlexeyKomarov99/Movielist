@@ -1,5 +1,6 @@
 import { 
     createSlice,
+    createSelector,
     createAsyncThunk,
 } from "@reduxjs/toolkit";
 import axios from 'axios';
@@ -15,30 +16,42 @@ const API_KEY = '5d3dd361';
 
 const initialState = {
     movies: [],
-    movieDescription: [],
-    favoritesMovies: [],
+    movieDescription: {},
+    favoritesMovies: [], // Синхронизицация с localStorage на запуске приложения!
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null
 }
 
-// Получение списка фильмов по запрашиваемому названию фильма в поле ввода
-export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (searchTerm) => {
-    console.log(searchTerm);
+// Инициализация favoritesMovies из localStorage
+const getStoredFavorites = () => {
+    const stored = localStorage.getItem('featured-movie-list');
+    return stored ? JSON.parse(stored) : [];
+}
+initialState.favoritesMovies = getStoredFavorites();
+
+// Получение списка фильмов
+export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (requestObject, { rejectWithValue }) => {
     try {
-        const response = await axios.get(`${POSTS_URL}/?s=${searchTerm.movieTitle}&apikey=${API_KEY}`);
-        return response.data;
+        const response = await axios.get(`${POSTS_URL}/?s=${requestObject.movieTitle}&apikey=${API_KEY}`);
+        if (response.data.Response === "False") {
+            return rejectWithValue(response.data.Error);
+        }
+        return response.data.Search;
     } catch (error) {
-        return error.message;
+        return rejectWithValue(error.message);
     }
 })
 
-// Подробное описание фильма
-export const fetchMovieDescription = createAsyncThunk('movies/fetchMovieDescription', async (imdbID) => {
+// Получение описания фильма
+export const fetchMovieDescription = createAsyncThunk('movies/fetchMovieDescription', async (imdbID, { rejectWithValue }) => {
     try {
         const response = await axios.get(`${POSTS_URL}/?i=${imdbID}&apikey=${API_KEY}`);
+        if (response.data.Response === "False") {
+            return rejectWithValue(response.data.Error);
+        }
         return response.data;
     } catch (error) {
-        return error.message;
+        return rejectWithValue(error.message);
     }
 })
 
@@ -48,12 +61,18 @@ const moviesSlice = createSlice({
     reducers: {
         addMovieFavorites: {
             reducer(state, action) {
-                state.favoritesMovies.push(action.payload);
+                const exist = state.favoritesMovies.some(movie => 
+                    movie.imdbID === action.payload.imdbID
+                )
+                if(!exist) {
+                    state.favoritesMovies.push(action.payload);
+                    localStorage.setItem('featured-movie-list', JSON.stringify(state.favoritesMovies));
+                }
             },
-            prepare(movieID, Title, Year, Poster, Type) {
+            prepare(imdbID, Title, Year, Poster, Type) {
                 return {
                     payload: {
-                        movieID, 
+                        imdbID,
                         Title, 
                         Year, 
                         Poster, 
@@ -61,13 +80,22 @@ const moviesSlice = createSlice({
                     }
                 }
             }
-        }
+        },
+        deleteMovieFavorites: {
+            reducer(state, action) {
+                state.favoritesMovies = state.favoritesMovies.filter(movie => 
+                    movie.imdbID !== action.payload
+                )
+                localStorage.setItem('featured-movie-list', JSON.stringify(state.favoritesMovies));
+            }
+        },
     },
     extraReducers(builder) {
         builder
             //=== Функции для получения сведений о списке фильмов ===//
-            .addCase(fetchMovies.pending, (state, action) => {
+            .addCase(fetchMovies.pending, (state) => {
                 state.status = 'loading';
+                state.error = null;
             })
             .addCase(fetchMovies.fulfilled, (state, action) => {
                 state.status = 'succeeded';
@@ -75,11 +103,13 @@ const moviesSlice = createSlice({
             })
             .addCase(fetchMovies.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message;
+                state.error = action.payload || action.error.message;
+                state.movies = [];
             })
             //=== Функции для подробного описания фильма ===//
-            .addCase(fetchMovieDescription.pending, (state, action) => {
+            .addCase(fetchMovieDescription.pending, (state) => {
                 state.status = 'loading';
+                state.error = null;
             })
             .addCase(fetchMovieDescription.fulfilled, (state, action) => {
                 state.status = 'succeeded';
@@ -87,23 +117,21 @@ const moviesSlice = createSlice({
             })
             .addCase(fetchMovieDescription.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message;
+                state.error = action.payload || action.error.message;
+                state.movieDescription = {};
             })
     }
 })
 
 export const selectAllMovies = (state) => state.movies.movies;
 export const getDescriptionMovie = (state) => state.movies.movieDescription;
-export const selectAllFavoriteMovies = (state) => {
-    // state.movies.favoritesMovies;
-    const storedFeatured = localStorage.getItem('featured-movie-list');
-    const moviesFeatured = JSON.parse(storedFeatured);
-    console.log('Это спиок избранных фильмов!');
-    console.log(moviesFeatured);
-}
-    
 export const getMoviesStatus = (state) => state.movies.status;
 export const getMoviesError = (state) => state.movies.error;
+export const getAllFavoriteMovies = (state) => state.movies.favoritesMovies;
+export const getFavoritesCount = createSelector(
+    getAllFavoriteMovies,
+    (allFavorites) => allFavorites.length
+)
 
-export const { addMovieFavorites } = moviesSlice.actions;
+export const { addMovieFavorites, deleteMovieFavorites } = moviesSlice.actions;
 export default moviesSlice.reducer;

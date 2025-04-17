@@ -21,8 +21,8 @@ const MovieList = () => {
   if(moviesStatus === 'loading') {
     content = <p>Loading...</p>
   } else if(moviesStatus === 'succeeded') {
-    console.log(movies.Search);
-    content = movies.Search.map(movie => (
+    console.log(movies);
+    content = movies.map(movie => (
       <MovieCard key={movie.imdbID} movie={movie} />
     ))
   } else if(moviesStatus === 'failed') {

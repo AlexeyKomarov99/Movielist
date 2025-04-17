@@ -1,19 +1,23 @@
 import React from 'react';
 //===== redux =====//
 import { useSelector } from 'react-redux';
-import { selectAllFavoriteMovies } from '../../features/movies/moviesSlice';
+import { getAllFavoriteMovies } from '../../features/movies/moviesSlice';
 //===== components =====//
-
+import MovieCard from '../../components/MovieCard/MovieCard';
+//===== assets =====//
+import './MoviesFeatured.scss';
 
 const MoviesFeatured = () => {
   
-  // const content = selectAllFavoriteMovies();
-  selectAllFavoriteMovies()
+  const moviesFavorites = useSelector(getAllFavoriteMovies);
+  let content;
+  content = moviesFavorites.map((movie) => (
+    <MovieCard key={movie.imdbID} movie={movie} />
+  ))
 
   return (
     <section className='MoviesFeatured'>
-      {/* {content} */}
-      Избранные фильмы
+      {content}
     </section>
   )
 }

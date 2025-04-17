@@ -16,26 +16,52 @@
                 padding: 12px;
                 border-radius: var(--border-radius-medium);
                 display: flex;
-                justify-content: start;
+                justify-content: space-between;
                 align-items: center;
-                .Navbar__icon-wrapper {
-                    display: block;
-                    width: 24px;
-                    height: 20px;
-                    object-fit: cover;
-                    margin-right: 16px;
-                    .Navbar__icon {
-                        width: 100%;
-                        height: 100%;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
+
+                // left part
+                .Navbar__left-part {
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+                    .Navbar__icon-wrapper {
+                        display: block;
+                        width: 24px;
+                        height: 20px;
+                        object-fit: cover;
+                        margin-right: 16px;
+                        .Navbar__icon {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            color: var(--color-light-gray);
+                        }
+                    }
+                    .Navbar__title {
                         color: var(--color-light-gray);
                     }
                 }
-                .Navbar__title {
-                    color: var(--color-light-gray);
+
+                // right part
+                .Navbar__right-part {
+                    .Navbar__circle-wrapper {
+                        display: block;
+                        width: 20px;
+                        height: 20px;
+                        background-color: var(--color-orange);
+                        border-radius: 1000%;
+                        .Navbar__circle {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
                 }
+
             }
             .active-link {
                 .Navbar__icon-wrapper {
