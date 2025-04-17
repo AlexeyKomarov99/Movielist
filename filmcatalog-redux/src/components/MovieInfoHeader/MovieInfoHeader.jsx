@@ -2,10 +2,10 @@ import React from 'react';
 //===== redux =====//
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    getAllFavoriteMovies,
     addMovieFavorites,
     deleteMovieFavorites
 } from '../../features/movies/moviesSlice';
+import { selectFavoriteMovies } from '../../features/movies/moviesSelectors';
 //===== assets =====//
 import './MovieInfoHeader.scss';
 // import { CiStar as StarIcon } from "react-icons/ci";
@@ -16,7 +16,7 @@ import { IoHeart as HeartIcon } from "react-icons/io5";
 const MovieInfoHeader = ({movie}) => {
     const dispatch = useDispatch();
 
-    const favoritesMovies = useSelector(getAllFavoriteMovies);
+    const favoritesMovies = useSelector(selectFavoriteMovies);
 
     const isFavorite = favoritesMovies.some(film =>
         film.imdbID === movie.imdbID

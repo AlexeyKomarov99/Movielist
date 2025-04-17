@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 //===== redux =====//
 import { useSelector } from 'react-redux';
-import { getFavoritesCount } from '../../features/movies/moviesSlice';
+import { selectFavoriteMoviesCount } from '../../features/movies/moviesSelectors';
 //===== assets =====//
 import './Navbar.scss';
 
@@ -13,7 +13,7 @@ import { GoHistory as HistoryIcon } from "react-icons/go";
 
 const Navbar = () => {
   
-  const countFavoritsMovies = useSelector(getFavoritesCount);
+  const countFavoritsMovies = useSelector(selectFavoriteMoviesCount);
   // const countWatchLaterMovies = useSelector(getWatchLaterCount);
   // const countHistoryMovies = useSelector(getHistoryCount);
 

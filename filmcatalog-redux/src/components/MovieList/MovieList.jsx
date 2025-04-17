@@ -2,10 +2,10 @@ import React from 'react';
 //===== redux =====//
 import { useSelector } from 'react-redux';
 import { 
-  selectAllMovies,
-  getMoviesStatus,
-  getMoviesError,
-} from '../../features/movies/moviesSlice';
+  selectFoundMovies,
+  selectMoviesStatus,
+  selectMoviesError,
+} from '../../features/movies/moviesSelectors';
 //===== assets =====//
 import './MovieList.scss';
 //===== components =====//
@@ -13,9 +13,9 @@ import MovieCard from '../MovieCard/MovieCard';
 
 const MovieList = () => {
   
-  const movies = useSelector(selectAllMovies);
-  const moviesStatus = useSelector(getMoviesStatus);
-  const error = useSelector(getMoviesError);
+  const movies = useSelector(selectFoundMovies);
+  const moviesStatus = useSelector(selectMoviesStatus);
+  const error = useSelector(selectMoviesError);
 
   let content;
   if(moviesStatus === 'loading') {

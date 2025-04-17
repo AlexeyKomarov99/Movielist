@@ -1,6 +1,5 @@
 import { 
     createSlice,
-    createSelector,
     createAsyncThunk,
 } from "@reduxjs/toolkit";
 import axios from 'axios';
@@ -15,7 +14,7 @@ const API_KEY = '5d3dd361';
 // 60z4ectqmb@osxofulk.com
 
 const initialState = {
-    movies: [],
+    moviesFound: [],
     movieDescription: {},
     favoritesMovies: [], // Синхронизицация с localStorage на запуске приложения!
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -92,19 +91,19 @@ const moviesSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            //=== Функции для получения сведений о списке фильмов ===//
+            //=== Функции для получения сведений о списке найденных фильмов ===//
             .addCase(fetchMovies.pending, (state) => {
                 state.status = 'loading';
                 state.error = null;
             })
             .addCase(fetchMovies.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.movies = action.payload;
+                state.moviesFound = action.payload;
             })
             .addCase(fetchMovies.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.payload || action.error.message;
-                state.movies = [];
+                state.moviesFound = [];
             })
             //=== Функции для подробного описания фильма ===//
             .addCase(fetchMovieDescription.pending, (state) => {
@@ -122,16 +121,6 @@ const moviesSlice = createSlice({
             })
     }
 })
-
-export const selectAllMovies = (state) => state.movies.movies;
-export const getDescriptionMovie = (state) => state.movies.movieDescription;
-export const getMoviesStatus = (state) => state.movies.status;
-export const getMoviesError = (state) => state.movies.error;
-export const getAllFavoriteMovies = (state) => state.movies.favoritesMovies;
-export const getFavoritesCount = createSelector(
-    getAllFavoriteMovies,
-    (allFavorites) => allFavorites.length
-)
 
 export const { addMovieFavorites, deleteMovieFavorites } = moviesSlice.actions;
 export default moviesSlice.reducer;
