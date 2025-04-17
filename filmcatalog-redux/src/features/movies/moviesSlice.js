@@ -1,5 +1,6 @@
 import { 
     createSlice,
+    createSelector,
     createAsyncThunk,
 } from "@reduxjs/toolkit";
 import axios from 'axios';
@@ -122,5 +123,27 @@ const moviesSlice = createSlice({
     }
 })
 
+<<<<<<< HEAD
 export const { addMovieFavorites, deleteMovieFavorites } = moviesSlice.actions;
+=======
+export const selectAllMovies = (state) => state.movies.movies;
+export const getDescriptionMovie = (state) => state.movies.movieDescription;
+export const getMoviesStatus = (state) => state.movies.status;
+export const getMoviesError = (state) => state.movies.error;
+
+export const getAllFavoriteMovies = createSelector(
+    (state) => state.movies.favoritesMovies,
+    (favoritesMovies) => {
+        const storedFeatured = localStorage.getItem('featured-movie-list');
+        const moviesFeatured = storedFeatured ? JSON.parse(storedFeatured) : [];
+        return [...favoritesMovies, ...moviesFeatured]; // Объединение избранных фильмов из состояния Redux и localStorage
+    }
+)
+export const getFavoritesCount = createSelector(
+    getAllFavoriteMovies,
+    (allFavorites) => allFavorites.length
+  )
+  
+export const { addMovieFavorites } = moviesSlice.actions;
+>>>>>>> f5c343b (Внесение правок (дом версия))
 export default moviesSlice.reducer;
