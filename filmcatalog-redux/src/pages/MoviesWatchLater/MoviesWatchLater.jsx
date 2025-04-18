@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const MoviesWatchLater = () => {
   return (
@@ -8,4 +8,4 @@ const MoviesWatchLater = () => {
   )
 }
 
-export default MoviesWatchLater
+export default MoviesWatchLater;

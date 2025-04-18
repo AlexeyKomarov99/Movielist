@@ -1,6 +1,5 @@
 import { 
     createSlice,
-    createSelector,
     createAsyncThunk,
 } from "@reduxjs/toolkit";
 import axios from 'axios';
@@ -18,16 +17,33 @@ const initialState = {
     moviesFound: [],
     movieDescription: {},
     favoritesMovies: [], // Синхронизицация с localStorage на запуске приложения!
+    watchLaterMovies: [],
+    viewHistoryMovies: [],
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null
 }
 
-// Инициализация favoritesMovies из localStorage
-const getStoredFavorites = () => {
+
+
+// Инициализация данных о фильмах из localStorage
+const getStoredFavoritesMovies = () => {
     const stored = localStorage.getItem('featured-movie-list');
     return stored ? JSON.parse(stored) : [];
 }
-initialState.favoritesMovies = getStoredFavorites();
+initialState.favoritesMovies = getStoredFavoritesMovies();
+
+const getStoredWatchLaterMovies = () => {
+    const stored = localStorage.getItem('watch-later-movie-list');
+    return stored ? JSON.parse(stored) : [];
+}
+initialState.watchLaterMovies = getStoredWatchLaterMovies();
+
+const getStoredViewHistoryMovies = () => {
+    const stored = localStorage.getItem('view-history-movie-list');
+    return stored ? JSON.parse(stored) : [];
+}
+initialState.viewHistoryMovies = getStoredViewHistoryMovies();
+
 
 // Получение списка фильмов
 export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (requestObject, { rejectWithValue }) => {
@@ -59,12 +75,13 @@ const moviesSlice = createSlice({
     name: 'movies',
     initialState,
     reducers: {
+        //=== favorites movies ===//
         addMovieFavorites: {
             reducer(state, action) {
-                const exist = state.favoritesMovies.some(movie => 
+                const existMovie = state.favoritesMovies.some(movie => 
                     movie.imdbID === action.payload.imdbID
                 )
-                if(!exist) {
+                if(!existMovie) {
                     state.favoritesMovies.push(action.payload);
                     localStorage.setItem('featured-movie-list', JSON.stringify(state.favoritesMovies));
                 }
@@ -89,6 +106,68 @@ const moviesSlice = createSlice({
                 localStorage.setItem('featured-movie-list', JSON.stringify(state.favoritesMovies));
             }
         },
+        //=== watch later movies ===//
+        addMovieWatchLater: {
+            reducer(state, action) {
+                const existMovie = state.watchLaterMovies.some(movie =>
+                    movie.imdbID === action.payload.imdbID
+                );
+                if(!existMovie) {
+                    state.watchLaterMovies.push(action.payload);
+                    localStorage.setItem('watch-later-movie-list', JSON.stringify(state.watchLaterMovies));
+                }
+            },
+            prepare(imdbID, Title, Year, Poster, Type) {
+                return {
+                    payload: {
+                        imdbID, 
+                        Title, 
+                        Year, 
+                        Poster, 
+                        Type
+                    }
+                }
+            }
+        },
+        deleteMovieWatchLater: {
+            reducer(state, action) {
+                state.watchLaterMovies = state.watchLaterMovies.filter(movie =>
+                    movie.imdbID !== action.payload
+                );
+                localStorage.setItem('watch-later-movie-list', JSON.stringify(state.watchLaterMovies));
+            }
+        },
+        //=== view history movies ===//
+        addMovieViewHistory: {
+            reducer(state, action) {
+                const existMovie = state.viewHistoryMovies.some(movie => 
+                    movie.imdbID === action.payload
+                );
+                if(!existMovie) {
+                    state.viewHistoryMovies.push(action.payload);
+                    localStorage.setItem('view-history-movie-list', JSON.stringify(state.viewHistoryMovies));
+                }
+            },
+            prepare(imdbID, Title, Year, Poster, Type) {
+                return {
+                    payload: {
+                        imdbID, 
+                        Title, 
+                        Year, 
+                        Poster, 
+                        Type
+                    }
+                }
+            }
+        },
+        deleteMovieViewHistory: {
+            reducer(state, action) {
+                state.viewHistoryMovies = state.viewHistoryMovies.filter(movie =>
+                    movie.imdbID !== action.payload
+                );
+                localStorage.setItem('view-history-movie-list', JSON.stringify(state.viewHistoryMovies));
+            }
+        }
     },
     extraReducers(builder) {
         builder
@@ -123,27 +202,12 @@ const moviesSlice = createSlice({
     }
 })
 
-<<<<<<< HEAD
-export const { addMovieFavorites, deleteMovieFavorites } = moviesSlice.actions;
-=======
-export const selectAllMovies = (state) => state.movies.movies;
-export const getDescriptionMovie = (state) => state.movies.movieDescription;
-export const getMoviesStatus = (state) => state.movies.status;
-export const getMoviesError = (state) => state.movies.error;
-
-export const getAllFavoriteMovies = createSelector(
-    (state) => state.movies.favoritesMovies,
-    (favoritesMovies) => {
-        const storedFeatured = localStorage.getItem('featured-movie-list');
-        const moviesFeatured = storedFeatured ? JSON.parse(storedFeatured) : [];
-        return [...favoritesMovies, ...moviesFeatured]; // Объединение избранных фильмов из состояния Redux и localStorage
-    }
-)
-export const getFavoritesCount = createSelector(
-    getAllFavoriteMovies,
-    (allFavorites) => allFavorites.length
-  )
-  
-export const { addMovieFavorites } = moviesSlice.actions;
->>>>>>> f5c343b (Внесение правок (дом версия))
+export const { 
+    addMovieFavorites, 
+    addMovieWatchLater,
+    addMovieViewHistory,
+    deleteMovieFavorites,
+    deleteMovieWatchLater,
+    deleteMovieViewHistory,
+} = moviesSlice.actions;
 export default moviesSlice.reducer;

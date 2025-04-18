@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 //===== redux =====//
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  selectMovieDescription,
   selectMoviesStatus,
   selectMoviesError
 } from '../../features/movies/moviesSelectors';
+import { fetchMovieDescription } from '../../features/movies/moviesSlice';
 //===== components =====//
 import MovieInfo from '../../components/MovieInfo/MovieInfo';
 
@@ -15,6 +15,7 @@ const MovieDetails = () => {
   const {movieId} = useParams();
   const dispatch = useDispatch();
   const [movieDescr, setMovieDescr] = useState(null);
+
   const movieStatus = useSelector(selectMoviesStatus);
   const error = useSelector(selectMoviesError);
 
@@ -29,7 +30,7 @@ const MovieDetails = () => {
 
   useEffect(() => {
     if(movieId) {
-      dispatch(selectMovieDescription(movieId)).then((response) => {
+      dispatch(fetchMovieDescription(movieId)).then((response) => {
         setMovieDescr(response.payload);
       })
     }
