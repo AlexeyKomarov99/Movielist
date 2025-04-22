@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 //===== redux =====//
 import { useDispatch } from 'react-redux';
-import { fetchMovies } from '../../features/movies/moviesSlice';
+import { fetchMovies } from '../../features/movies/moviesAPI';
 //===== assets =====//
 import './MovieSearchMW.scss';
 import Modal from 'react-modal';

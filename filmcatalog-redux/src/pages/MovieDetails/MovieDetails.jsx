@@ -6,7 +6,7 @@ import {
   selectMoviesStatus,
   selectMoviesError
 } from '../../features/movies/moviesSelectors';
-import { fetchMovieDescription } from '../../features/movies/moviesSlice';
+import { fetchMovieDescription } from '../../features/movies/moviesAPI';
 //===== components =====//
 import MovieInfo from '../../components/MovieInfo/MovieInfo';
 

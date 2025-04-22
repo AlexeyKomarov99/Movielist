@@ -1,0 +1,17 @@
+.HomePage {
+    .HomePage__movies {
+        display: flex;
+        flex-direction: column;
+        .HomePage__title {
+            margin-bottom: 8px;
+        }
+        margin-bottom: 16px;
+    }
+    .HomePage__serials {
+        display: flex;
+        flex-direction: column;
+        .HomePage__title {
+            margin-bottom: 8px;
+        }
+    }
+}

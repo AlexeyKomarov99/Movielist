@@ -5,6 +5,10 @@ export const selectMovieDescription = (state) => state.movies.movieDescription;
 export const selectMoviesStatus = (state) => state.movies.status;
 export const selectMoviesError = (state) => state.movies.error;
 
+//===== Main Page =====//
+export const selectMainPageMovies = (state) => state.movies.mainPageMovies;
+export const selectMainPageSerials = (state) => state.movies.mainPageSerials;
+
 //===== Featured Movies =====//
 export const selectFavoriteMovies = (state) => state.movies.favoritesMovies;
 export const selectFavoriteMoviesCount = createSelector(

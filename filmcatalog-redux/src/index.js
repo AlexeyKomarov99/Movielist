@@ -8,6 +8,13 @@ import App from './App';
 //===== redux =====//
 import { Provider } from 'react-redux';
 import { store } from './app/store';
+import {
+  fetchMainPageMovies,
+  fetchMainPageSerials,
+} from './features/movies/moviesAPI';
+
+// store.dispatch(fetchMainPageMovies('movies'));
+// store.dispatch(fetchMainPageSerials('serial'));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
