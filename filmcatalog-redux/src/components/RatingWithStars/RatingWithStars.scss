@@ -1,0 +1,13 @@
+.RatingWithStars {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    .RatingWithStars__stars {
+        margin-right: 8px;
+    }
+    .RatingWithStars__rating {
+        color: var(--color-orange);
+        font-size: 18px;
+    }
+}

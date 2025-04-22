@@ -13,7 +13,7 @@ const MoviesFeatured = () => {
   let content;
   content = moviesFavorites.map((movie) => (
     <MovieCard key={movie.imdbID} movie={movie} />
-  ))
+  ));
 
   return (
     <section className='MoviesFeatured'>

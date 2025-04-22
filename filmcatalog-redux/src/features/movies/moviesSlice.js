@@ -19,6 +19,10 @@ const initialState = {
     favoritesMovies: [], // Синхронизицация с localStorage на запуске приложения!
     watchLaterMovies: [],
     viewHistoryMovies: [],
+
+    
+
+    
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null
 }
@@ -48,7 +52,18 @@ initialState.viewHistoryMovies = getStoredViewHistoryMovies();
 // Получение списка фильмов
 export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (requestObject, { rejectWithValue }) => {
     try {
-        const response = await axios.get(`${POSTS_URL}/?s=${requestObject.movieTitle}&apikey=${API_KEY}`);
+        const params = [];
+        if (requestObject.movieTitle)
+            params.push(`s=${encodeURIComponent(requestObject.movieTitle)}`);
+        if (requestObject.genre)
+            params.push(`type=${encodeURIComponent(requestObject.genre.value)}`);
+        if (requestObject.startYear)
+            params.push(`y=${encodeURIComponent(requestObject.startYear)}`);
+
+        const url = `${POSTS_URL}/?${params.join('&')}&apikey=${API_KEY}`;
+
+        const response = await axios.get(url);
+        
         if (response.data.Response === "False") {
             return rejectWithValue(response.data.Error);
         }
@@ -56,7 +71,7 @@ export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (request
     } catch (error) {
         return rejectWithValue(error.message);
     }
-})
+});
 
 // Получение описания фильма
 export const fetchMovieDescription = createAsyncThunk('movies/fetchMovieDescription', async (imdbID, { rejectWithValue }) => {

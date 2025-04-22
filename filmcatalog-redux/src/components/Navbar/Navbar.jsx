@@ -2,7 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 //===== redux =====//
 import { useSelector } from 'react-redux';
-import { selectFavoriteMoviesCount } from '../../features/movies/moviesSelectors';
+import { 
+  selectFavoriteMoviesCount,
+  selectWatchLaterMoviesCount,
+  selectViewHistoryMoviesCount,
+} from '../../features/movies/moviesSelectors';
 //===== assets =====//
 import './Navbar.scss';
 
@@ -14,16 +18,15 @@ import { GoHistory as HistoryIcon } from "react-icons/go";
 const Navbar = () => {
   
   const countFavoritsMovies = useSelector(selectFavoriteMoviesCount);
-  // const countWatchLaterMovies = useSelector(getWatchLaterCount);
-  // const countHistoryMovies = useSelector(getHistoryCount);
+  const countWatchLaterMovies = useSelector(selectWatchLaterMoviesCount);
+  const countHistoryMovies = useSelector(selectViewHistoryMoviesCount);
 
   const navbarData = [
     {id: 1, route: '/', title: 'Главная', icon: <HomeIcon className="Navbar__icon" />},
     {id: 2, route: '/movies/featured-list', title: 'Избранное', icon: <HeartIcon className="Navbar__icon" />, countMovies: countFavoritsMovies },
-    {id: 3, route: '/movies/watch-later', title: 'Посмотреть позже', icon: <WatchLaterIcon className="Navbar__icon" />, countMovies: 0 },
-    {id: 4, route: '/movies/movie-viewing-history', title: 'История просмотров', icon: <HistoryIcon className="Navbar__icon" />, countMovies: 0 },
+    {id: 3, route: '/movies/watch-later', title: 'Посмотреть позже', icon: <WatchLaterIcon className="Navbar__icon" />, countMovies: countWatchLaterMovies },
+    {id: 4, route: '/movies/movie-viewing-history', title: 'История просмотров', icon: <HistoryIcon className="Navbar__icon" />, countMovies: countHistoryMovies },
   ]
-
   
   const navWithCount = ['Избранное', 'Посмотреть позже', 'История просмотров'];
 

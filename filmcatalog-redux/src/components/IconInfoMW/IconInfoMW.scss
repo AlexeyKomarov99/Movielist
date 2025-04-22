@@ -1,0 +1,22 @@
+@import '../../App.css';
+
+.IconInfoMW {
+    position: relative;
+
+    .IconInfoMW__icon {
+
+    }
+
+    .IconInfoMW__modal-window {
+        position: absolute;
+        margin-top: 8px;
+        z-index: 10000;
+        background: white;
+        color: var(--color-black);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        border-radius: 4px;
+        padding: 10px;
+        pointer-events: "none"; // чтобы не мешать mouseleave
+        min-width: 120px;
+    }
+}

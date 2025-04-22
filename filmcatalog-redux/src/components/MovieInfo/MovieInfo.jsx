@@ -1,4 +1,12 @@
 import React, {useState} from 'react';
+//===== redux =====//
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  addMovieViewHistory
+} from '../../features/movies/moviesSlice';
+import {
+  selectViewHistoryMovies
+} from '../../features/movies/moviesSelectors';
 //===== assets =====//
 import './MovieInfo.scss';
 //===== components =====//
@@ -6,6 +14,7 @@ import MovieInfoNavigation from '../MovieInfoNavigation/MovieInfoNavigation';
 import MovieInfoHeader from '../MovieInfoHeader/MovieInfoHeader';
 
 const MovieInfo = ({movie}) => {
+    const dispatch = useDispatch();
     const [activeSection, setActiveSection] = useState('about');
     const switchActiveSection = (selectedSection) => {
         if(['about', 'actors', 'facts'].includes(selectedSection)) {
@@ -14,8 +23,20 @@ const MovieInfo = ({movie}) => {
           setActiveSection('about');
         }
     }
-    
-    console.log(movie);
+
+    const viewHistoryMovie = useSelector(selectViewHistoryMovies);
+    const isViewHistory = viewHistoryMovie.some(film =>
+      film.imdbID === movie.imdbID
+    );
+    if(!isViewHistory) {
+      dispatch(addMovieViewHistory(
+        movie.imdbID, 
+        movie.Title, 
+        movie.Year,
+        movie.Poster,
+        movie.Type
+      ))
+    }
 
     const movieDetails = [
       { label: 'Название', value: movie.Title },

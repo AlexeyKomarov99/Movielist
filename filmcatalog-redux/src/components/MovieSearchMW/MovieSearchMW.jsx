@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 //===== redux =====//
 import { useDispatch } from 'react-redux';
@@ -11,19 +11,16 @@ import Select from 'react-select';
 Modal.setAppElement('#root');
 
 const genreOptions = [
-    { value: 'action', label: 'Экшен' },
-    { value: 'comedy', label: 'Комедия' },
-    { value: 'drama', label: 'Драма' },
-    { value: 'horror', label: 'Ужасы' },
-    { value: 'romance', label: 'Романтика' },
+    { value: 'movie', label: 'Фильмы' },
+    { value: 'series', label: 'Сериалы' },
+    { value: 'episode', label: 'Эпизоды' },
   ];
 
 const MovieSearchMW = ({openWindow, openWindowClick}) => {
     const [searchExpression, setSearchExpression] = useState({
         movieTitle: '',
         genre: '',
-        startYear: '',
-        endYear: '',
+        year: ''
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -144,45 +141,24 @@ const MovieSearchMW = ({openWindow, openWindowClick}) => {
                             />
                         </fieldset>
 
-                        <div className="MovieSearchMW__form-group-date">
-                            <fieldset className='MovieSearchMW__form-group'>
-                                <label 
-                                    htmlFor="startYear"
-                                    className='MovieSearchMW__label'
-                                >
-                                    Год (с)
-                                </label>
-                                <input
-                                    id='startYear'
-                                    type="number"
-                                    name='startYear'
-                                    min='1900'
-                                    max={currentYear}
-                                    value={searchExpression.startYear}
-                                    onChange={handleSearchExpressionChange}
-                                    placeholder='Начало'
-                                />
-                            </fieldset>
-
-                            <fieldset className='MovieSearchMW__form-group'>
-                                <label 
-                                    htmlFor="endYear"
-                                    className='MovieSearchMW__label'
-                                >
-                                    Год (по)
-                                </label>
-                                <input
-                                    id='endYear'
-                                    type="number"
-                                    name='endYear'
-                                    min='1900'
-                                    max={currentYear}
-                                    value={searchExpression.endYear}
-                                    onChange={handleSearchExpressionChange}
-                                    placeholder='Конец'
-                                />
-                            </fieldset>
-                        </div>
+                        <fieldset className='MovieSearchMW__form-group'>
+                            <label 
+                                htmlFor="startYear"
+                                className='MovieSearchMW__label'
+                            >
+                                Год выхода
+                            </label>
+                            <input
+                                id='startYear'
+                                type="number"
+                                name='startYear'
+                                min='1900'
+                                max={currentYear}
+                                value={searchExpression.startYear}
+                                onChange={handleSearchExpressionChange}
+                                placeholder='Год публикации'
+                            />
+                        </fieldset>
 
                     </div>
 
