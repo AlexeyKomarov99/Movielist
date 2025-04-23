@@ -1,4 +1,4 @@
-🎬 MovieList - приложение для поиска фильмов
+🎬 MovieList - Movie Search App
 
 <img width="1728" alt="Фон приложения" src="https://github.com/user-attachments/assets/cb1435c0-5f46-482d-b033-56021adaf20f" />
 
