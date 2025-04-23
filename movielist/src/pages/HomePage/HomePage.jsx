@@ -2,7 +2,7 @@ import React from 'react';
 //===== components =====//
 import HomePageMovies from '../../components/HomePageMovies/HomePageMovies';
 import HomePageSerials from '../../components/HomePageSerials/HomePageSerials';
-//===== assets =====//
+//===== assets =====/
 import './HomePage.scss';
 
 const HomePage = () => {
